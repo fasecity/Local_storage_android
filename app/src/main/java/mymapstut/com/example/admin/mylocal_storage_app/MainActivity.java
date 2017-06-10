@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -23,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     //TextView tv;
     List<DataItem> dataItemList = SampleDataProvider.dataItemList;
     List<String> itemNamesList = new ArrayList<>();
+    RecyclerView.LayoutManager layoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,12 +59,15 @@ public class MainActivity extends AppCompatActivity {
 //      Collections.sort(itemNamesList);
 //        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>
 //                (this,android.R.layout.simple_list_item_1,itemNamesList);
-//        DataItemAdapter dataItemAdapter = new DataItemAdapter(this,dataItemList);
-//        RecyclerView rc = (RecyclerView) findViewById(R.id.mylist);
-//        rc.setAdapter(dataItemAdapter);
-        DataItemAdapterListView dataItemAdapter = new DataItemAdapterListView(this,dataItemList);
-        ListView rc = (ListView) findViewById(R.id.mylist);
+        DataItemAdapter dataItemAdapter = new DataItemAdapter(this,dataItemList);
+        RecyclerView rc = (RecyclerView) findViewById(R.id.rcView);
+        layoutManager = new LinearLayoutManager(this);
+        rc.setHasFixedSize(false);//only use this for fixed ammount
+        rc.setLayoutManager(layoutManager);
         rc.setAdapter(dataItemAdapter);
+//        DataItemAdapterListView dataItemAdapter = new DataItemAdapterListView(this,dataItemList);
+//        ListView rc = (ListView) findViewById(R.id.mylist);
+//        rc.setAdapter(dataItemAdapter);
 
 
 
