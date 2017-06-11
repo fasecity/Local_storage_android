@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import mymapstut.com.example.admin.mylocal_storage_app.model.DataItem;
 
@@ -35,7 +36,7 @@ public class DataItemAdapter extends RecyclerView.Adapter<DataItemAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(DataItemAdapter.ViewHolder holder, int position) {
-        DataItem item = mItems.get(position);
+        final DataItem item = mItems.get(position);
 
         try {
             holder.tvName.setText(item.getItemName());
@@ -46,6 +47,19 @@ public class DataItemAdapter extends RecyclerView.Adapter<DataItemAdapter.ViewHo
         } catch (IOException e) {
             e.printStackTrace();
         }
+        holder.mView.setOnClickListener(new View.OnClickListener() {//getting viewholder class and ctor
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(mContext, "clicked: " + item.getItemName(), Toast.LENGTH_SHORT).show();
+            }
+        });
+        holder.mView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Toast.makeText(mContext, "long click: " + item.getItemName(), Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        });
     }
 
     @Override
@@ -57,11 +71,13 @@ public class DataItemAdapter extends RecyclerView.Adapter<DataItemAdapter.ViewHo
 
         public TextView tvName;
         public ImageView imageView;
+        View mView;//refrence for clicklistner in oon bind
         public ViewHolder(View itemView) {
             super(itemView);
 
             tvName = (TextView) itemView.findViewById(R.id.itemNametext);
             imageView = (ImageView) itemView.findViewById(R.id.imageView);
+            mView=itemView;//passing it view in ctor
         }
     }
 }
