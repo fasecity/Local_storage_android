@@ -1,9 +1,11 @@
 package mymapstut.com.example.admin.mylocal_storage_app.model;
 
 
+import java.util.UUID;
 
 public class DataItem {
 
+    //pass in UUID to item id
     private String itemID;
     private String itemName;
     private String description;
@@ -17,6 +19,11 @@ public class DataItem {
     }
 
     public DataItem(String itemID, String itemName, String description, String category, int sortPosition, double price, String image) {
+        if (itemID == null) {
+            //pass in UUID to item id
+            itemID = UUID.randomUUID().toString();
+        }
+
         this.itemID = itemID;
         this.itemName = itemName;
         this.description = description;
@@ -24,6 +31,7 @@ public class DataItem {
         this.sortPosition = sortPosition;
         this.price = price;
         this.image = image;
+
     }
 
     public String getItemID() {
