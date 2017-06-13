@@ -21,7 +21,7 @@ public class DataItem implements Parcelable {
 
     }
 
-    public DataItem(String itemID, String itemName, String description, String category, int sortPosition, double price, String image) {
+    public DataItem(String itemID, String itemName, String category , String description, int sortPosition, double price, String image) {
         if (itemID == null) {
             //pass in UUID to item id
             itemID = UUID.randomUUID().toString();
