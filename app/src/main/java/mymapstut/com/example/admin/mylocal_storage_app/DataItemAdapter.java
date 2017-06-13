@@ -19,8 +19,10 @@ import java.io.InputStream;
 import java.util.List;
 
 public class DataItemAdapter extends RecyclerView.Adapter<DataItemAdapter.ViewHolder> {
-
+    //intent constants
+    public static final String ITEM_KEY ="item_id_key" ;//make sure its public
     public static final String ITEM_ID_KEY ="item_id_key" ;//make sure its public
+    //instance vars
     private List<DataItem> mItems;
     private Context mContext;
 
@@ -54,9 +56,9 @@ public class DataItemAdapter extends RecyclerView.Adapter<DataItemAdapter.ViewHo
             @Override
             public void onClick(View v) {
                 //get item id frm dataItem class/2/create intent/3/make string constant and pass in extra
-                String itemId = item.getItemID();
+               // String itemId = item.getItemID(); //non parcable
                 Intent intent = new Intent(mContext,DetailActivity.class);
-                intent.putExtra(ITEM_ID_KEY,itemId);
+                intent.putExtra(ITEM_KEY,item);
                 mContext.startActivity(intent);
             }
         });

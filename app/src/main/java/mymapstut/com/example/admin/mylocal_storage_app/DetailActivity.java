@@ -31,10 +31,17 @@ public class DetailActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //get intent & intent extras
-        String itemId = getIntent().getExtras().getString(DataItemAdapter.ITEM_ID_KEY);
+        //String itemId = getIntent().getExtras().getString(DataItemAdapter.ITEM_ID_KEY);
         //get info from static hashmap this gets dataItem Id and maps
-        DataItem item = SampleDataProvider.dataItemMap.get(itemId);
-        Toast.makeText(this, "you picked " + item.getItemName(), Toast.LENGTH_SHORT).show();
+       // DataItem item = SampleDataProvider.dataItemMap.get(itemId);
+        //getting data from parcleble /2/use ifnn statment null saftey
+        DataItem item = getIntent().getExtras().getParcelable(DataItemAdapter.ITEM_KEY);
+        if (item != null) {
+            Toast.makeText(this, "you picked " + item.getItemName(), Toast.LENGTH_SHORT).show();
+        }
+        else {
+            Toast.makeText(this, "no data revived", Toast.LENGTH_SHORT).show();
+        }
 
 
     }

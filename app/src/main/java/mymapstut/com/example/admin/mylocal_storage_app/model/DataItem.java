@@ -1,9 +1,12 @@
 package mymapstut.com.example.admin.mylocal_storage_app.model;
 
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.UUID;
 
-public class DataItem {
+public class DataItem implements Parcelable {
 
     //pass in UUID to item id
     private String itemID;
@@ -90,6 +93,7 @@ public class DataItem {
         this.image = image;
     }
 
+
     @Override
     public String toString() {
         return "DataItem{" +
@@ -102,4 +106,42 @@ public class DataItem {
                 ", image='" + image + '\'' +
                 '}';
     }
+    //making this parcelable to pass intent extras too other activities
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.itemID);
+        dest.writeString(this.itemName);
+        dest.writeString(this.description);
+        dest.writeString(this.category);
+        dest.writeInt(this.sortPosition);
+        dest.writeDouble(this.price);
+        dest.writeString(this.image);
+    }
+
+    protected DataItem(Parcel in) {
+        this.itemID = in.readString();
+        this.itemName = in.readString();
+        this.description = in.readString();
+        this.category = in.readString();
+        this.sortPosition = in.readInt();
+        this.price = in.readDouble();
+        this.image = in.readString();
+    }
+
+    public static final Parcelable.Creator<DataItem> CREATOR = new Parcelable.Creator<DataItem>() {
+        @Override
+        public DataItem createFromParcel(Parcel source) {
+            return new DataItem(source);
+        }
+
+        @Override
+        public DataItem[] newArray(int size) {
+            return new DataItem[size];
+        }
+    };
 }
